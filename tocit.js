@@ -18,8 +18,11 @@ function f() {
             var body = document.getElementsByTagName('body')[0];
             body.style.marginBottom = "24px !important";
             addCSS('@media print { #js-toc {display: none;visibility: hidden;}}\n' + '@media screen { #js-toc {position: fixed;left: 0;right: 0;top: auto;bottom: 0;width: 100%;display: block;border-top: 1px solid #777;background: #ddd;margin: 0;padding: 3px;z-index: 9999;}\n' + '#js-toc select { font: 8pt verdana, sans-serif;margin: 0;margin-left:5px;background: #fff;color: #000;float: left;padding: 0;vertical-align: bottom;}\n' + '#js-toc option { font: 8pt verdana, sans-serif;color: #000;}\n' + '#js-toc .hideBtn { font: bold 8pt verdana, sans-serif !important;float: left;margin-left: 2px;margin-right: 2px;padding: 1px;border: 1px solid #999;background: #e7e7e7;}\n' + '#js-toc .hideBtn a { color: #333;text-decoration: none;background: transparent;} #js-toc .hideBtn a:hover { color: #333;text-decoration: none;background: transparent;}}');
+
             var toc = document.createElement(window.opera || showHide ? 'tocdiv' : 'div');
             toc.id = 'js-toc';
+            document.body.appendChild(toc);
+
             if (showHide) {
                 var hideDiv = document.createElement('div');
                 hideDiv.setAttribute('class', 'hideBtn');
@@ -30,23 +33,26 @@ function f() {
                 hideDiv.appendChild(hideLink);
                 toc.appendChild(hideDiv);
             }
+
             tocSelect = document.createElement('select');
             tocSelect.setAttribute("onchange", "if(this.value){function flash(rep,delay) { for (var i=rep;i>0;i--) {window.setTimeout('el.style.background=\"#ff7\";',delay*i*2);window.setTimeout('el.style.background=elbg',delay*((i*2)+1));};};elid=this.value;el=document.getElementById(elid);elbg=el.style.background;location.href='#'+elid;flash(5,100);" + (resetSelect ? "this.selectedIndex=0;}" : "}"));
             tocSelect.id = 'toc-select';
+            toc.appendChild(tocSelect);
+
             tocEmptyOption = document.createElement('option');
             tocEmptyOption.setAttribute('value', '');
             tocEmptyOption.appendChild(document.createTextNode(fullTOCText));
             tocSelect.appendChild(tocEmptyOption);
-            toc.appendChild(tocSelect);
-            document.body.appendChild(toc);
+
             for (var i = 0, aH; aH = aHs[i]; i++) {
                 if (aH.offsetWidth) {
+                    var refID = aH.id ? aH.id : aH.tagName + '-' + (i * 1 + 1);
+                    aH.id = refID;
+
                     op = document.createElement("option");
                     op.appendChild(document.createTextNode(gs(aH.tagName) + getInnerText(aH).substring(0, 100)));
-                    var refID = aH.id ? aH.id : aH.tagName + '-' + (i * 1 + 1);
                     op.setAttribute("value", refID);
-                    document.getElementById("toc-select").appendChild(op);
-                    aH.id = refID;
+                    tocSelect.appendChild(op);
                 }
             }
         }
