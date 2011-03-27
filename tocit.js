@@ -5,7 +5,6 @@ var XPmatch = "//h1|//h2|//h3|//h4";
 var resetSelect = true;
 var showHide = true;
 var useCookie = true;
-var addMenuItem = true;
 
 function f() {
     if (document.getElementsByTagName("html").length && (
