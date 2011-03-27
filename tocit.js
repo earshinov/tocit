@@ -5,6 +5,7 @@ var XPmatch = "//h1|//h2|//h3|//h4";
 var resetSelect = true;
 var showHide = true;
 var useCookie = true;
+var trackScrolling = true;
 
 function f() {
     if (document.getElementsByTagName("html").length && (
@@ -55,9 +56,28 @@ function f() {
                     tocSelect.appendChild(op);
                 }
             }
+
+            if (trackScrolling) {
+                /* Will work for most pages where vertical scrollbar is
+                 * attached to the whole window (not to a particular block
+                 * with, for example, fixed height and overflow: auto) */
+                function callback(aH) { return aH.offsetTop <= document.documentElement.scrollTop; }
+                document.onscroll = function() {
+                    var i = upperBound(aHs, 0, aHs.length, callback);
+                    tocSelect.value = callback(aHs[i]) ? aHs[i].id : "";
+                };
+            }
         }
     }
 };
+
+function upperBound(a, begin, end, callback) {
+    if (begin === end)
+        return begin;
+    var i = begin + Math.ceil((end - begin) / 2);
+    callback(a[i]) ? begin = i : end = i - 1;
+    return upperBound(a, begin, end, callback);
+}
 
 function autoTOC_toggleDisplay() {
     if (document.getElementById('js-toc')) {
