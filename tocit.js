@@ -75,7 +75,7 @@ function f() {
                  * with, for example, fixed height and overflow: auto) */
                 function callback(aH) { return aH.offsetTop <= document.documentElement.scrollTop; }
                 document.onscroll = function() {
-                    var i = upperBound(aHs, 0, aHs.length, callback);
+                    var i = upperBound(aHs, 0, aHs.length - 1, callback);
                     tocSelect.value = callback(aHs[i]) ? aHs[i].id : "";
                 };
             }
