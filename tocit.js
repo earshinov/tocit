@@ -1,3 +1,15 @@
+/*
+ * TOCit! Bookmarklet
+ *
+ * Displays table of contents (TOC) of the page it runs on as a dropdown list.
+ * Intended for use in Firefox.
+ *
+ * Home: <http://blog.runeskaug.com/place/2007/07/autotoc-user-sc.html>
+ *
+ * Modified by Eugene Arshinov to track page scrolling and accordingly update
+ * the item selected in the TOC.
+ */
+
 var fullTOCText = "Table of Contents";
 var hideBtnText = "\u00a0X\u00a0";
 var RXmatch = /^h[1-4]$/i;
