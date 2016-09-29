@@ -123,7 +123,7 @@ function getHTMLHeadings() {
     }
     outArray = new Array();
     if (document.evaluate) {
-        var nodes = document.evaluate(XPmatch, document, null, XPathResult.ANY_TYPE, null);
+        var nodes = document.evaluate(XPmatch, document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
         var thisHeading = nodes.iterateNext();
         var j = 0;
         while (thisHeading) {
