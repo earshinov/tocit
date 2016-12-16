@@ -41,18 +41,21 @@ function f() {
                 hideDiv.setAttribute('class', 'hideBtn');
                 var hideLink = document.createElement('a');
                 hideLink.setAttribute("href", "#");
-                hideLink.setAttribute("onclick", "document.getElementById('js-toc').style.display='none';");
+                hideLink.onclick = function() {
+                    document.getElementById('js-toc').style.display = 'none';
+                    return false;
+                };
                 hideLink.appendChild(document.createTextNode(hideBtnText));
                 hideDiv.appendChild(hideLink);
                 toc.appendChild(hideDiv);
             }
 
-            tocSelect = document.createElement('select');
+            var tocSelect = document.createElement('select');
             tocSelect.setAttribute("onchange", "if(this.value){function flash(rep,delay) { for (var i=rep;i>0;i--) {window.setTimeout('el.style.background=\"#ff7\";',delay*i*2);window.setTimeout('el.style.background=elbg',delay*((i*2)+1));};};elid=this.value;el=document.getElementById(elid);elbg=el.style.background;location.href='#'+elid;flash(5,100);" + (resetSelect ? "this.selectedIndex=0;}" : "}"));
             tocSelect.id = 'toc-select';
             toc.appendChild(tocSelect);
 
-            tocEmptyOption = document.createElement('option');
+            var tocEmptyOption = document.createElement('option');
             tocEmptyOption.setAttribute('value', '');
             tocEmptyOption.appendChild(document.createTextNode(fullTOCText));
             tocSelect.appendChild(tocEmptyOption);
@@ -62,7 +65,7 @@ function f() {
                     var refID = aH.id ? aH.id : aH.tagName + '-' + (i * 1 + 1);
                     aH.id = refID;
 
-                    op = document.createElement("option");
+                    var op = document.createElement("option");
                     op.appendChild(document.createTextNode(gs(aH.tagName) + getInnerText(aH).substring(0, 100)));
                     op.setAttribute("value", refID);
                     tocSelect.appendChild(op);
@@ -81,7 +84,7 @@ function f() {
             }
         }
     }
-};
+}
 
 function upperBound(a, begin, end, callback) {
     if (begin === end)
@@ -103,7 +106,7 @@ function autoTOC_toggleDisplay() {
             if (useCookie) {
                 document.cookie = 'autotoc_hide=true;path=/';
             }
-        };
+        }
     } else {
         if (useCookie) {
             document.cookie = 'autotoc_hide=;path=/';
@@ -121,7 +124,7 @@ function getHTMLHeadings() {
         }
         return NodeFilter.FILTER_SKIP;
     }
-    outArray = new Array();
+    var outArray = [];
     if (document.evaluate) {
         var nodes = document.evaluate(XPmatch, document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
         var thisHeading = nodes.iterateNext();
