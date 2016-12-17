@@ -41,10 +41,7 @@ function f() {
                 hideDiv.setAttribute('class', 'hideBtn');
                 var hideLink = document.createElement('a');
                 hideLink.setAttribute("href", "#");
-                hideLink.onclick = function() {
-                    document.getElementById('js-toc').style.display = 'none';
-                    return false;
-                };
+                hideLink.setAttribute("onclick", "document.getElementById('js-toc').style.display = 'none'; return false;");
                 hideLink.appendChild(document.createTextNode(hideBtnText));
                 hideDiv.appendChild(hideLink);
                 toc.appendChild(hideDiv);
