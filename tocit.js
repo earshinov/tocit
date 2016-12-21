@@ -26,8 +26,16 @@ function f() {
             document.getElementsByTagName('h3').length ||
             document.getElementsByTagName('h4').length) && (
             !useCookie || (useCookie && getCookie('autotoc_hide') != 'true'))) {
+
         var aHs = getHTMLHeadings();
-        if (aHs.length > 1) {
+        if (aHs.length == 0)
+            return;
+
+        var tocSelect = document.getElementById('js-toc');
+        if (tocSelect)
+            tocSelect.style.removeProperty('display');
+        else {
+
             var body = document.getElementsByTagName('body')[0];
             body.style.marginBottom = "24px !important";
             addCSS('@media print { #js-toc {display: none;visibility: hidden;}}\n' + '@media screen { #js-toc {position: fixed;left: 0;right: 0;top: auto;bottom: 0;width: 100%;display: block;border-top: 1px solid #777;background: #ddd;margin: 0;padding: 3px;z-index: 9999;}\n' + '#js-toc select { font: 8pt verdana, sans-serif;margin: 0;margin-left:5px;background: #fff;color: #000;float: left;padding: 0;vertical-align: bottom;}\n' + '#js-toc option { font: 8pt verdana, sans-serif;color: #000;}\n' + '#js-toc .hideBtn { font: bold 8pt verdana, sans-serif !important;float: left;margin-left: 2px;margin-right: 2px;padding: 1px;border: 1px solid #999;background: #e7e7e7;}\n' + '#js-toc .hideBtn a { color: #333;text-decoration: none;background: transparent;} #js-toc .hideBtn a:hover { color: #333;text-decoration: none;background: transparent;}}');
@@ -47,7 +55,7 @@ function f() {
                 toc.appendChild(hideDiv);
             }
 
-            var tocSelect = document.createElement('select');
+            tocSelect = document.createElement('select');
             tocSelect.setAttribute("onchange", "if(this.value){function flash(rep,delay) { for (var i=rep;i>0;i--) {window.setTimeout('el.style.background=\"#ff7\";',delay*i*2);window.setTimeout('el.style.background=elbg',delay*((i*2)+1));};};elid=this.value;el=document.getElementById(elid);elbg=el.style.background;location.href='#'+elid;flash(5,100);" + (resetSelect ? "this.selectedIndex=0;}" : "}"));
             tocSelect.id = 'toc-select';
             toc.appendChild(tocSelect);
@@ -69,18 +77,24 @@ function f() {
                 }
             }
 
-            if (trackScrolling) {
-                /* Will work for most pages where vertical scrollbar is
-                 * attached to the whole window (not to a particular block
-                 * with, for example, fixed height and overflow: auto) */
-                function callback(aH) { return aH.offsetTop <= document.documentElement.scrollTop; }
+            if (trackScrolling)
                 document.onscroll = function() {
-                    var i = upperBound(aHs, 0, aHs.length - 1, callback);
-                    tocSelect.value = callback(aHs[i]) ? aHs[i].id : "";
+                    updateActiveHeading(tocSelect, aHs);
                 };
-            }
         }
+
+        if (trackScrolling)
+                updateActiveHeading(tocSelect, aHs);
     }
+}
+
+function updateActiveHeading(tocSelect, aHs) {
+    function callback(aH) { return aH.offsetTop <= window.scrollY; }
+    /* Will work for most pages where vertical scrollbar is
+     * attached to the whole window (not to a particular block
+     * with, for example, fixed height and overflow: auto) */
+    var i = upperBound(aHs, 0, aHs.length - 1, callback);
+    tocSelect.value = callback(aHs[i]) ? aHs[i].id : "";
 }
 
 function upperBound(a, begin, end, callback) {
