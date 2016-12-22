@@ -10,10 +10,10 @@
  * the item selected in the TOC.
  */
 
-var fullTOCText = "Table of Contents";
+var fullTOCText = "-- Table of Contents --";
 var hideBtnText = "\u00a0X\u00a0";
 var RXmatch = /^h[1-4]$/i;
-var XPmatch = "//h1|//h2|//h3|//h4";
+var XPmatch = "//h1|//h2|//h3|//h4|//h5|//h6";
 var resetSelect = true;
 var showHide = true;
 var useCookie = true;
@@ -24,7 +24,9 @@ function f() {
             document.getElementsByTagName('h1').length ||
             document.getElementsByTagName('h2').length ||
             document.getElementsByTagName('h3').length ||
-            document.getElementsByTagName('h4').length) && (
+            document.getElementsByTagName('h4').length ||
+            document.getElementsByTagName('h5').length ||
+            document.getElementsByTagName('h6').length) && (
             !useCookie || (useCookie && getCookie('autotoc_hide') != 'true'))) {
 
         var aHs = getHTMLHeadings();
