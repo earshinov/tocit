@@ -21,3 +21,8 @@ In order to see the table of contents on a page, just keep the page open and act
 Please note that the bookmarket may not work on some pages which impose security restrictions on running third-party scripts.
 
 In most cases, using the bookmarklet requires Internet connection.
+
+## Credit
+
+This is based on Rune Skaug's AutoTOC ([here](http://www.runeskaug.com/greasemonkey/autotoc.user.js), [license](http://creativecommons.org/licenses/by/2.5/)), enhanced to track page scrolling and accordingly update
+the item selected in the TOC.

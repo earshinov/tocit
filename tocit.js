@@ -4,8 +4,10 @@
  * Displays table of contents (TOC) of the page it runs on as a dropdown list.
  * Intended for use in Firefox.
  *
- * Home: <http://blog.runeskaug.com/place/2007/07/autotoc-user-sc.html>
- *
+ * Home: <http://www.runeskaug.com/greasemonkey/autotoc.user.js>
+ *          Creative Commons Attribution License
+ *          http://creativecommons.org/licenses/by/2.5/
+ * 
  * Modified by Eugene Arshinov to track page scrolling and accordingly update
  * the item selected in the TOC.
  */
