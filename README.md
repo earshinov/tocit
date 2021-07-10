@@ -6,12 +6,12 @@ A bookmarklet that displays a table of contents.
 
 ## Installation
 
-- Drag the following link into your bookmarks bar: [TOCit!](javascript:(function(){function%20loadScript(a){var%20c=document.createElement('script');c.type='text/javascript';c.src=a;var%20d=document.getElementsByTagName('head')[0];d.appendChild(c)}loadScript('https://rawgit.com/earshinov/tocit/master/tocit.js')})();)
+- Drag the following link into your bookmarks bar: [TOCit!](javascript:(function(){function%20loadScript(a){var%20c=document.createElement('script');c.type='text/javascript';c.src=a;var%20d=document.getElementsByTagName('head')[0];d.appendChild(c)}loadScript('https://earshinov.github.io/tocit/tocit.js')})();)
 
 - Alternatively, manually add a bookmark with an arbitrary title (preferable "TOCit!") and with the following code as the link address (URL):
 
 ```
-javascript:(function(){function%20loadScript(a){var%20c=document.createElement('script');c.type='text/javascript';c.src=a;var%20d=document.getElementsByTagName('head')[0];d.appendChild(c)}loadScript('https://rawgit.com/earshinov/tocit/master/tocit.js')})();
+javascript:(function(){function%20loadScript(a){var%20c=document.createElement('script');c.type='text/javascript';c.src=a;var%20d=document.getElementsByTagName('head')[0];d.appendChild(c)}loadScript('https://earshinov.github.io/tocit/tocit.js')})();
 ```
 
 ## Usage
